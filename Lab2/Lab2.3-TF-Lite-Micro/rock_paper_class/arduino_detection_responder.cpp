@@ -25,7 +25,7 @@ limitations under the License.
 
 // Flash the blue LED after each inference
 void RespondToDetection(tflite::ErrorReporter* error_reporter,
-                        int8_t person_score, int8_t no_person_score) {
+                        int8_t paper, int8_t rock) {
   static bool is_initialized = false;
   if (!is_initialized) {
     // Pins for the built-in RGB LEDs on the Arduino Nano 33 BLE Sense
@@ -47,9 +47,19 @@ void RespondToDetection(tflite::ErrorReporter* error_reporter,
   delay(100);
   digitalWrite(LEDB, HIGH);
 
-  // Switch on the green LED when a person is detected,
-  // the red when no person is detected
-  if (person_score > no_person_score) {
+  // Switch on the green LED when a paper is detected,
+  // the red when rock is detected
+
+  // Blink the blue LED when inference is not clear
+  if (paper < 0 && rock < 0){
+    for(int i; i < 3; i++){
+      digitalWrite(LEDB, LOW);
+      delay(50);
+      digitalWrite(LEDB, HIGH);
+      delay(50);
+    }
+  }
+  else if (paper > rock) {
     digitalWrite(LEDG, LOW);
     digitalWrite(LEDR, HIGH);
   } else {
@@ -58,7 +68,7 @@ void RespondToDetection(tflite::ErrorReporter* error_reporter,
   }
 
   TF_LITE_REPORT_ERROR(error_reporter, "Rock %d Paper: %d",
-                       person_score, no_person_score);
+                       paper, rock);
 }
 
 #endif  // ARDUINO_EXCLUDE_CODE

@@ -158,7 +158,8 @@ void loop() {
   // Process the inference results.
   // int8_t person_score = output->data.uint8[kPersonIndex];
   // int8_t no_person_score = output->data.uint8[kNotAPersonIndex];
-  int8_t rock = output->data.int8[kPersonIndex];
-  int8_t paper = output->data.int8[kNotAPersonIndex];
-  RespondToDetection(error_reporter, rock, paper);
+  int8_t paper = output->data.int8[kPaperIndex];
+  int8_t rock = output->data.int8[kRockIndex];
+  
+  RespondToDetection(error_reporter, paper, rock);
 }
