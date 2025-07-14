@@ -118,26 +118,7 @@ void loop() {
                             input->data.int8)) {
     TF_LITE_REPORT_ERROR(error_reporter, "Image capture failed.");
   }
-  //============================================================
-  // DELETE:
-  // Serial.println("Image captured successfully!");
-  // for (int i = 0; i < 96*96; ++i) {
-  //   Serial.print(input->data.int8[i]);
-  //   Serial.print(" ");
-  //   // Optional: print a newline every row if you want to visualize as 2D
-  //   // if ((i + 1) % kNumCols == 0) Serial.println();
-  // }
-  // Serial.println();
 
-
-  // Serial.print("Input dims: ");
-  // for (int i = 0; i < input->dims->size; ++i) {
-  //   Serial.print(input->dims->data[i]);
-  //   Serial.print(" ");
-  // }
-  // Serial.println();
-
-  //=======================================================
 
   // Transmit image data with labels
   Serial.println("<image>");
@@ -156,8 +137,6 @@ void loop() {
   TfLiteTensor* output = interpreter->output(0);
 
   // Process the inference results.
-  // int8_t person_score = output->data.uint8[kPersonIndex];
-  // int8_t no_person_score = output->data.uint8[kNotAPersonIndex];
   int8_t paper = output->data.int8[kPaperIndex];
   int8_t rock = output->data.int8[kRockIndex];
   

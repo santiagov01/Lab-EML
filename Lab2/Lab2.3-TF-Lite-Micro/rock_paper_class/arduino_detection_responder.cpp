@@ -67,7 +67,7 @@ void RespondToDetection(tflite::ErrorReporter* error_reporter,
     digitalWrite(LEDR, LOW);
   }
 
-  TF_LITE_REPORT_ERROR(error_reporter, "Rock %d Paper: %d",
+  TF_LITE_REPORT_ERROR(error_reporter, "Paper %d Rock: %d",
                        paper, rock);
 }
 
